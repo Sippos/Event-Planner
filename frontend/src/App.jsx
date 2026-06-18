@@ -1,20 +1,49 @@
-function App() {
-  return (
-    <div className="container mx-auto p-4 mt-8">
-      <h1 className="text-3xl font-bold mb-4">Welcome to the Event Planner</h1>
-      <p className="text-gray-700 text-lg">
-        This is your new React Frontend using Vite, Tailwind CSS, and React Router.
-      </p>
-      <div className="mt-6 p-4 bg-gray-100 rounded shadow">
-        <h2 className="text-xl font-semibold mb-2">Next Steps:</h2>
-        <ul className="list-disc pl-5 text-gray-700">
-          <li>Create an <strong>EventsPage.jsx</strong> component to fetch data from your API.</li>
-          <li>Add a new <code>&lt;Route&gt;</code> in <strong>main.jsx</strong> for the Events page.</li>
-          <li>Ensure your Express API backend is running and configure CORS if needed.</li>
-        </ul>
-      </div>
-    </div>
-  );
-}
+import { useState, useEffect } from 'react';
+import EventGrid from "./components/EventGrid"; 
+import Spinner from "./components/Spinner";
+
+const BASE_URL = 'http://localhost:3001/api';
+
+const App = () => {
+    const [events, setEvents] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchEvents = async () => {
+            try {
+                const token = localStorage.getItem('token');
+
+                const response = await fetch(`${BASE_URL}/events`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization' : token ? `Bearer ${token}` : ''
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error('Failed to fetch events');
+                }
+                const data = await response.json();
+                console.log("Data from API:", data);
+                setEvents(data.results);
+                setLoading(false);
+            } catch (err) {
+                setError(err.message);
+                setLoading(false);
+            }
+        };
+        fetchEvents();
+    }, []);
+
+    if (error) return <div>Error: {error}</div>;
+
+    return (
+        <>
+            {loading ? <Spinner /> : <EventGrid events={events} />}
+        </>
+    );
+};
 
 export default App;
