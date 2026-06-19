@@ -2,7 +2,7 @@ import {Link} from "react-router-dom";
 
 const EventCard = ({event}) => {
     return (
-        <div className="border rounded-lg shadow-md p-4 hover:shadow-lg transition">
+        <div className="relative border rounded-lg shadow-md p-4 hover:shadow-lg transition">
             {event.image && <img src={event.image} alt={event.title} className="w-full h-48 object-cover rounded" />}
 
             <h3 className="text-xl font-semibold mt-2">{event.title}</h3>
@@ -10,7 +10,7 @@ const EventCard = ({event}) => {
 
             <Link
                 to={`/events/${event.id}`}
-                className="text-blue-500 font-semibold mt-4 block">
+                className="text-blue-500 font-semibold mt-4 block before:absolute before:inset-0">
                 View Details
             </Link>
             </div>
