@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react'
 import LoginPage from './LoginPage';
+import CreateEventPage from './CreateEventPage';
 
 function Navbar() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
-
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false)
   useEffect(() => {
     const token = localStorage.getItem('token')
     if (token) {
@@ -32,11 +33,18 @@ function Navbar() {
 
           <div>
             {isLoggedIn ? (
+              <div className='flex items-center space-x-4'>
+              <button
+                onClick={() => setIsCreateModalOpen(true)}
+                className='bg-green-500 px-4 py-2 rounded hover:bg-grenn-600 font-bold'>
+              +</button>
+
               <button
                 onClick={handleLogout}
                 className="bg-red-500 px-4 py-2 rounded hover:bg-red-600">
                   Logout
                 </button>
+          </div>
             ) : (
             <button
             onClick={() => setIsModalOpen(true)}
@@ -51,6 +59,10 @@ function Navbar() {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onLoginSuccess={() => setIsLoggedIn(true)} />
+
+      <CreateEventPage
+        isOpen={isCreateModalOpen}
+        onClose={() => setIsCreateModalOpen(false)} />
     </nav>
   );
 }

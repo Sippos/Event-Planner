@@ -6,6 +6,7 @@ const LoginPage = ({isOpen, onClose, onLoginSuccess}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('')
+
     const [error, setError] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
 
@@ -14,9 +15,14 @@ const LoginPage = ({isOpen, onClose, onLoginSuccess}) => {
     const handleLogin = async (e) => {
         e.preventDefault();
         setError(null)
+
+        if (password.length < 8) {
+            setError("Password must be at least 8 characters long.")
+            return
+        }
         setIsLoading(true)
 
-        const endpoint = isLoginMode ? '/api/auth/login' : 'api/users'
+        const endpoint = isLoginMode ? '/api/auth/login' : '/api/users'
         const payload = isLoginMode
             ? {email, password}
             : {name, email, password}
@@ -60,7 +66,7 @@ const LoginPage = ({isOpen, onClose, onLoginSuccess}) => {
                         x
                     </button>
             
-            <h2 className="text-2xl font-bold mb-6 text-center">
+            <h2 className="text-2xl font-bold mb-6 text-black text-center">
                 {isLoginMode ? 'Welcome Back' : 'Create an Account'}</h2>
             
             {error && (
@@ -76,21 +82,21 @@ const LoginPage = ({isOpen, onClose, onLoginSuccess}) => {
                         placeholder="Full Name"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        className="border p-2 rounded focus:outline-blue-500 required" />
+                        className="border p-2 rounded focus:outline-blue-500 text-gray-900" required />
                 )}
                 <input
                     type="email"
                     placeholder='Email Address'
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="border p-2 rounded focus:outline-blue-500" required
+                    className="border p-2 rounded focus:outline-blue-500 text-gray-900" required
                     />
                 <input
                     type="password"
                     placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="border p-2 rounded focus:outline-blue-500"
+                    className="border p-2 rounded focus:outline-blue-500 text-gray-900"
                     required
                     />
                 <button
