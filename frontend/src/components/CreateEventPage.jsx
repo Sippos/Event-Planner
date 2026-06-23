@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-const CreateEventPage = ({isOpen, isClose}) => {
+const CreateEventPage = ({isOpen, onClose}) => {
     const navigate = useNavigate()
 
     const [title, setTitle] = useState('')
@@ -57,7 +57,7 @@ const CreateEventPage = ({isOpen, isClose}) => {
             }
 
             navigate(`/events/${data.id}`)
-            onclose()
+            onClose()
         } catch (err) {
             setError(err.message)
         } finally {
@@ -66,9 +66,14 @@ const CreateEventPage = ({isOpen, isClose}) => {
     }
 
     return (
-        <div className='fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50'>
-            <h1 className='text-3xl font-bold mb-6'>Create New Event</h1>
-            <div className='bg-white p-8 rounded-lg shadow-xl w-[32rem] relative overflow-y-auto max-h-[90vh]'>
+        <div className='fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4'>
+            <div className='glass-panel-heavy p-8 rounded-xl shadow-2xl w-[32rem] relative overflow-y-auto max-h-[90vh] border-t-white/30'>
+                <button
+                    onClick={onClose}
+                    className="absolute top-4 right-4 text-outline hover:text-primary font-bold transition-colors">
+                        x
+                </button>
+                <h1 className='text-3xl font-display font-bold mb-6 text-primary text-center'>Create New Event</h1>
         
             {error && (
                 <div className='bg-red-100 text-red-600 p-3 rounded mb-4 text-sm'>
@@ -78,53 +83,53 @@ const CreateEventPage = ({isOpen, isClose}) => {
 
         <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
             <div>
-                <label className='block text-gray-700 font-bold mb-2'>Title</label>
+                <label className='block text-on-surface font-sans font-bold mb-2 text-sm'>Title</label>
                     <input
                         type= "text"
                         value= {title}
                         onChange={(e) => setTitle(e.target.value)}
-                        className="w-full border p-2 rounded focus:outline-blue-500"
+                        className="w-full bg-surface-container-low/50 border border-white/10 p-3 rounded focus:outline-none focus:border-primary focus:shadow-glow-primary text-on-surface font-sans transition-all placeholder:text-outline"
                         required
                         />
             </div>
 
             <div>
-                <label className='block text-gray-700 font-bold mb-2'>Date & Time</label>
+                <label className='block text-on-surface font-sans font-bold mb-2 text-sm'>Date & Time</label>
                     <input
                         type= "datetime-local"
                         value= {date}
                         onChange={(e) => setDate(e.target.value)}
-                        className="w-full border p-2 rounded focus:outline-blue-500"
+                        className="w-full bg-surface-container-low/50 border border-white/10 p-3 rounded focus:outline-none focus:border-primary focus:shadow-glow-primary text-on-surface font-sans transition-all placeholder:text-outline"
                         required
                         />
             </div>
 
             <div>
-                <label className='block text-gray-700 font-bold mb-2'>Location</label>
+                <label className='block text-on-surface font-sans font-bold mb-2 text-sm'>Location</label>
                     <input
                         type= "text"
                         value= {location}
                         onChange={(e) => setLocation(e.target.value)}
-                        className="w-full border p-2 rounded focus:outline-blue-500"
+                        className="w-full bg-surface-container-low/50 border border-white/10 p-3 rounded focus:outline-none focus:border-primary focus:shadow-glow-primary text-on-surface font-sans transition-all placeholder:text-outline"
                         />
             </div>
 
             <div>
-                <label className='block text-gray-700 font-bold mb-2'>Description</label>
+                <label className='block text-on-surface font-sans font-bold mb-2 text-sm'>Description</label>
                     <input
                         type= "text"
                         value= {description}
                         onChange={(e) => setDescription(e.target.value)}
-                        className="w-full border p-2 rounded focus:outline-blue-500"
+                        className="w-full bg-surface-container-low/50 border border-white/10 p-3 rounded focus:outline-none focus:border-primary focus:shadow-glow-primary text-on-surface font-sans transition-all placeholder:text-outline"
                         />
             </div>
 
             <button 
                 type="submit"
                 disabled={isLoading}
-                className='bg-blue-600 text-white font-bold p-3 rounded hover:bg-blue-700 transition mt-4'
+                className='bg-gradient-to-r from-primary to-secondary text-on-primary-container font-bold p-3 rounded hover:shadow-glow-primary transition-all mt-4'
                 >
-                    {isLoading ? 'Create Event...' : 'Create Event'}
+                    {isLoading ? 'Creating Event...' : 'Create Event'}
                 </button>
         </form>
     </div>

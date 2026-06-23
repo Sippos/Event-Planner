@@ -36,23 +36,25 @@ if (error) return <div className="p-8 text-red-500">Error: {error}</div>
 if (!event) return <div className="p-8">Event not found.</div>
 
 return (
-    <div className="max-w-3xl mx-auto p-8">
-        <h1 className="text-4xl font-bold mb-2">{event.title}</h1>
-        <div className="flex flex-col text-gray-500 mb-8 border-b pb-4">
-            <span className="font-semibold text-gray-700">
+    <div className="max-w-3xl mx-auto p-8 glass-panel mt-10 rounded-xl">
+        <h1 className="text-4xl font-display font-bold mb-2 text-primary tracking-tight">{event.title}</h1>
+        <div className="flex flex-col text-on-surface-variant mb-8 border-b border-white/10 pb-4 font-mono">
+            <span className="font-semibold text-secondary mb-1">
                 {event.location}
             </span>
-            <span>
+            <span className="text-sm">
                 {new Date(event.date).toLocaleDateString([], { hour: '2-digit', minute: '2-digit'})}
             </span>
         </div>
-        <div className="text-lg leading-relaxed text-gray-800">{event.description}</div>
+        <div className="text-lg leading-relaxed text-on-surface font-sans mb-6">{event.description}</div>
         {event.latitude && event.longitude && (
-            <EventMap
-                latitude={event.latitude}
-                longitude={event.longitude} />
+            <div className="rounded-lg overflow-hidden border border-white/10 shadow-lg">
+                <EventMap
+                    latitude={event.latitude}
+                    longitude={event.longitude} />
+            </div>
         )}
-        <p className="text-gray-600 mt-4">{event.location}</p>
+        <p className="text-on-surface-variant mt-4 font-mono text-sm">{event.location}</p>
     </div>
 )
 }

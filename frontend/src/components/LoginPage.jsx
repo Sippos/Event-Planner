@@ -58,15 +58,15 @@ const LoginPage = ({isOpen, onClose, onLoginSuccess}) => {
     }
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div className='bg-white p-8 rounded-lg shadow-xl w-96 relative'>
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50">
+            <div className='glass-panel-heavy p-8 rounded-xl shadow-2xl w-96 relative border-t-white/30'>
                 <button
                     onClick={onClose}
-                    className="absolute top-4 right-4 text-gray-500 hover:text-black font-bold">
+                    className="absolute top-4 right-4 text-outline hover:text-primary font-bold transition-colors">
                         x
                     </button>
             
-            <h2 className="text-2xl font-bold mb-6 text-black text-center">
+            <h2 className="text-2xl font-display font-bold mb-6 text-primary text-center">
                 {isLoginMode ? 'Welcome Back' : 'Create an Account'}</h2>
             
             {error && (
@@ -82,40 +82,40 @@ const LoginPage = ({isOpen, onClose, onLoginSuccess}) => {
                         placeholder="Full Name"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        className="border p-2 rounded focus:outline-blue-500 text-gray-900" required />
+                        className="w-full bg-surface-container-low/50 border border-white/10 p-3 rounded focus:outline-none focus:border-primary focus:shadow-glow-primary text-on-surface font-sans transition-all placeholder:text-outline" required />
                 )}
                 <input
                     type="email"
                     placeholder='Email Address'
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="border p-2 rounded focus:outline-blue-500 text-gray-900" required
+                    className="w-full bg-surface-container-low/50 border border-white/10 p-3 rounded focus:outline-none focus:border-primary focus:shadow-glow-primary text-on-surface font-sans transition-all placeholder:text-outline" required
                     />
                 <input
                     type="password"
                     placeholder="Password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="border p-2 rounded focus:outline-blue-500 text-gray-900"
+                    className="w-full bg-surface-container-low/50 border border-white/10 p-3 rounded focus:outline-none focus:border-primary focus:shadow-glow-primary text-on-surface font-sans transition-all placeholder:text-outline"
                     required
                     />
                 <button
                     type="submit"
                     disabled={isLoading}
-                    className="bg-blue-500 text-white font-bold p-2 rounded hover:bg-blue-600 transition"
+                    className="bg-gradient-to-r from-primary to-secondary text-on-primary-container font-bold p-3 rounded hover:shadow-glow-primary transition-all mt-2"
                     >
                     {isLoading ? 'Processing...' : (isLoginMode ? 'Sign In' : 'Sign Up')}
                     </button>
             </form>
 
-            <p className="text-center text-sm text-gray-600 mt-6">
-                {isLoginMode ? "Don't have an account?" : "Already have and account?"}
+            <p className="text-center text-sm text-on-surface-variant mt-6">
+                {isLoginMode ? "Don't have an account? " : "Already have an account? "}
                 <button
                     onClick={() => {
                         setIsLoginMode(!isLoginMode)
                         setError(null)
                     }}
-                    className='text-blue-500 font-semibold hover:underline'>
+                    className='text-secondary font-semibold hover:text-secondary-fixed-dim hover:drop-shadow-[0_0_8px_rgba(211,251,255,0.8)] transition-all'>
                         {isLoginMode ? 'Sign Up' : 'Sign In'}
                     </button>
             </p>
