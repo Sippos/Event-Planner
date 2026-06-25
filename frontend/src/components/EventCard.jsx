@@ -2,7 +2,7 @@ import {Link} from "react-router-dom";
 
 const EventCard = ({event}) => {
     return (
-        <article className="glass-card rounded-xl overflow-hidden flex flex-col group">
+        <article className="glass-card relative rounded-xl overflow-hidden flex flex-col group">
             <div className="h-48 relative overflow-hidden bg-surface-container-highest">
                 {event.image && (
                     <div className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110 opacity-70" style={{backgroundImage: `url('${event.image}')`}}></div>
