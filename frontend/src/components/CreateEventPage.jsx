@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-const CreateEventPage = ({isOpen, onClose}) => {
+const CreateEventPage = () => {
     const navigate = useNavigate()
 
     const [title, setTitle] = useState('')
@@ -14,7 +14,7 @@ const CreateEventPage = ({isOpen, onClose}) => {
     const [error, setError] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
 
-    if (!isOpen) return null
+
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -57,7 +57,6 @@ const CreateEventPage = ({isOpen, onClose}) => {
             }
 
             navigate(`/events/${data.id}`)
-            onClose()
         } catch (err) {
             setError(err.message)
         } finally {
@@ -66,13 +65,8 @@ const CreateEventPage = ({isOpen, onClose}) => {
     }
 
     return (
-        <div className='fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4'>
-            <div className='glass-panel-heavy p-8 rounded-xl shadow-2xl w-[32rem] relative overflow-y-auto max-h-[90vh] border-t-white/30'>
-                <button
-                    onClick={onClose}
-                    className="absolute top-4 right-4 text-outline hover:text-primary font-bold transition-colors">
-                        x
-                </button>
+        <div className='flex items-center justify-center min-h-[60vh] p-4'>
+            <div className='glass-panel-heavy p-8 rounded-xl shadow-2xl w-[32rem] relative border-t-white/30'>
                 <h1 className='text-3xl font-display font-bold mb-6 text-primary text-center'>Create New Event</h1>
         
             {error && (

@@ -1,6 +1,6 @@
 import {useState} from 'react'
 
-const LoginPage = ({isOpen, onClose, onLoginSuccess}) => {
+const LoginPage = () => {
     const [isLoginMode, setIsLoginMode] = useState(true)
 
     const [email, setEmail] = useState('');
@@ -10,7 +10,7 @@ const LoginPage = ({isOpen, onClose, onLoginSuccess}) => {
     const [error, setError] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
 
-    if (!isOpen) return null
+    
     
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -43,8 +43,7 @@ const LoginPage = ({isOpen, onClose, onLoginSuccess}) => {
 
             if (isLoginMode) {
                 localStorage.setItem('token', data.token);
-                onLoginSuccess()
-                onClose()
+                window.location.href = '/';
             } else {
                 setIsLoginMode(true)
                 setError("Account created! Please sign in.")
@@ -58,13 +57,8 @@ const LoginPage = ({isOpen, onClose, onLoginSuccess}) => {
     }
 
     return (
-        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50">
+        <div className="flex items-center justify-center min-h-[60vh]">
             <div className='glass-panel-heavy p-8 rounded-xl shadow-2xl w-96 relative border-t-white/30'>
-                <button
-                    onClick={onClose}
-                    className="absolute top-4 right-4 text-outline hover:text-primary font-bold transition-colors">
-                        x
-                    </button>
             
             <h2 className="text-2xl font-display font-bold mb-6 text-primary text-center">
                 {isLoginMode ? 'Welcome Back' : 'Create an Account'}</h2>

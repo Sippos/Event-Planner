@@ -67,9 +67,24 @@ const App = () => {
 
             {/* Grid Header */}
             <div className="flex flex-col md:flex-row justify-between items-end mb-8 gap-4">
-                <div>
-                    <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-2">Upcoming Events</h2>
-                    <p className="font-body-md text-body-md text-on-surface-variant">Discover local and global gatherings.</p>
+                <div className="flex items-center gap-4">
+                    <div>
+                        <h2 className="font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface mb-2">Upcoming Events</h2>
+                        <p className="font-body-md text-body-md text-on-surface-variant">Discover local and global gatherings.</p>
+                    </div>
+                    <button 
+                        onClick={() => {
+                            const token = localStorage.getItem('token');
+                            if (!token) {
+                                alert("You must be logged in to create an event!");
+                            } else {
+                                window.location.href = '/create-event';
+                            }
+                        }}
+                        className="ml-4 h-10 px-4 rounded-lg bg-surface-container-high border border-white/10 text-primary font-body-md font-bold hover:bg-surface-variant transition-colors flex items-center gap-2">
+                        <span className="material-symbols-outlined" style={{fontSize: '20px'}}>add</span>
+                        <span>Add Event</span>
+                    </button>
                 </div>
                 {/* Filtering/Sorting Mockup */}
                 <div className="flex items-center gap-3 bg-surface-container-low rounded-lg p-1 border border-white/5">
