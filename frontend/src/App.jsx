@@ -10,7 +10,7 @@ const App = () => {
     useEffect(() => {
         const fetchEvents = async () => {
             try {
-                const API_URL = import.meta.env.VITE_API_URL;
+                const API_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:3001';
 
                 const token = localStorage.getItem('token');
 
