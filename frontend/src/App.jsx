@@ -2,8 +2,6 @@ import { useState, useEffect } from 'react';
 import EventGrid from "./components/EventGrid"; 
 import Spinner from "./components/Spinner";
 
-const BASE_URL = 'http://localhost:3001/api';
-
 const App = () => {
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -12,9 +10,11 @@ const App = () => {
     useEffect(() => {
         const fetchEvents = async () => {
             try {
+                const API_URL = import.meta.env.VITE_API_URL;
+
                 const token = localStorage.getItem('token');
 
-                const response = await fetch(`${BASE_URL}/events`, {
+                const response = await fetch(`${API_URL}/api/events`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',

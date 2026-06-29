@@ -39,8 +39,10 @@ const CreateEventPage = () => {
         }
 
         try {
-            const response = await fetch('http://localhost:3001/api/events', {
-                method: 'Post',
+            const API_URL = import.meta.env.VITE_API_URL;
+
+            const response = await fetch(`${API_URL}/api/events`, {
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
